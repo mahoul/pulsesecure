@@ -10,8 +10,15 @@ and acquires an IP address.
 - scripts/run-psecure.sh
 Script to run the image.
 
-## Build and run
+## Fast and dirty build and run
 
 ```sh
+$ cd pulsesecure
+$ docker build -t $USER/pulsesecure .
+$ sudo cp scripts/NetworkManager/dispatcher.d/99-pulsesecure.sh /etc/NetworkManager/dispatcher.d/
+$ sudo systemctl restart NetworkManager
+$ [ ! -d ~/bin ] && mkdir ~/bin
+$ cp scripts/run-psecure.sh ~/bin && chmod +x ~/bin/run-psecure.sh
+$ run-psecure.sh
 ```
 
