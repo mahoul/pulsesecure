@@ -1,8 +1,12 @@
 #!/bin/bash
 
+DOCKER_USER=$(whoami)
+
 if [ ! -d ~/.pulse_secure ]; then
   mkdir -p ~/.pulse_secure
 fi
+
+xhost +
 
 docker run -it --rm \
 -v /etc/localtime:/etc/localtime:ro \
@@ -12,5 +16,5 @@ docker run -it --rm \
 --privileged \
 -e DISPLAY=unix$DISPLAY \
 --name pulsesecure \
-mahoul/pulsesecure
+$DOCKER_USER/pulsesecure
 

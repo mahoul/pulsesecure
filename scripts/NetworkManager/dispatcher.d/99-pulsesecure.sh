@@ -7,15 +7,16 @@ set -x
 IF=$1
 STATUS=$2
 
-USER=kike
 CONTAINER=pulsesecure
 
 NEW_RESOLV=/tmp/$CONTAINER-resolv.conf
 NEW_HOSTS=/tmp/$CONTAINER-hosts
 
 getContainerInfo() {
-  /bin/su $USER -c "docker exec $CONTAINER cat /etc/resolv.conf" > $NEW_RESOLV
-  /bin/su $USER -c "docker exec $CONTAINER cat /etc/hosts" > $NEW_HOSTS
+#  /bin/su $USER -c "docker exec $CONTAINER cat /etc/resolv.conf" > $NEW_RESOLV
+#  /bin/su $USER -c "docker exec $CONTAINER cat /etc/hosts" > $NEW_HOSTS
+  docker exec $CONTAINER cat /etc/resolv.conf > $NEW_RESOLV
+  docker exec $CONTAINER cat /etc/hosts > $NEW_HOSTS
 }
 
 wait_for_tunnel_ip() {
