@@ -10,7 +10,7 @@ and acquires an IP address.
 - scripts/run-psecure.sh
 Script to run the image.
 
-## Fast and dirty build and run
+## Quick and dirty build and run
 
 ```sh
 $ cd pulsesecure
