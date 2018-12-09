@@ -15,8 +15,10 @@ NEW_HOSTS=/tmp/$CONTAINER-hosts
 getContainerInfo() {
 #  /bin/su $USER -c "docker exec $CONTAINER cat /etc/resolv.conf" > $NEW_RESOLV
 #  /bin/su $USER -c "docker exec $CONTAINER cat /etc/hosts" > $NEW_HOSTS
-  docker exec $CONTAINER cat /etc/resolv.conf > $NEW_RESOLV
-  docker exec $CONTAINER cat /etc/hosts > $NEW_HOSTS
+  if docker ps | grep -q $CONTAINER; then
+    docker exec $CONTAINER cat /etc/resolv.conf > $NEW_RESOLV
+    docker exec $CONTAINER cat /etc/hosts > $NEW_HOSTS
+  fi
 }
 
 wait_for_tunnel_ip() {
@@ -38,7 +40,7 @@ restore_conf_files(){
 }
 
 dnsmasq_enabled_in_nm(){
-  grep -q 'dns=dnsmasq' /etc/NetworkManager/NetworkManager.conf
+  grep -q 'dns=dnsmasq' /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/conf.d/*
 }
 
 if [ "$IF" = "tun0" ] && [ "$STATUS" = "up" ]; then
