@@ -64,5 +64,5 @@ if [ "$IF" = "tun0" ] && [ "$STATUS" = "down" ]; then
   exit $?
 fi
 
-) 2>&1 | tee /tmp/pulsesecure-$1.log
+) 2>&1 | tee /tmp/pulsesecure-$1-$2.log
 
