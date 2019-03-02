@@ -13,8 +13,6 @@ NEW_RESOLV=/tmp/$CONTAINER-resolv.conf
 NEW_HOSTS=/tmp/$CONTAINER-hosts
 
 getContainerInfo() {
-#  /bin/su $USER -c "docker exec $CONTAINER cat /etc/resolv.conf" > $NEW_RESOLV
-#  /bin/su $USER -c "docker exec $CONTAINER cat /etc/hosts" > $NEW_HOSTS
   if docker ps | grep -q $CONTAINER; then
     docker exec $CONTAINER cat /etc/resolv.conf > $NEW_RESOLV
     docker exec $CONTAINER cat /etc/hosts > $NEW_HOSTS
@@ -37,6 +35,9 @@ backup_conf_files(){
 restore_conf_files(){
   cp -f /etc/hosts.pulsesecure /etc/hosts
   cp -f /etc/resolv.conf.pulsesecure /etc/resolv.conf
+  if [ -s /etc/fedora-release ] || [ -s /etc/redhat-release ]; then
+	  restorecon -Rv /etc/hosts /etc/resolv.conf
+  fi
 }
 
 dnsmasq_enabled_in_nm(){

@@ -16,13 +16,10 @@ fi
 docker run $DOCKER_RUN_PARAMS --rm \
 -v /etc/localtime:/etc/localtime:ro \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
--v ~/.pulse_secure/pulse/.pulsesvc_handle:/root/.pulse_secure/pulse/.pulsesvc_handle \
--v ~/.pulse_secure/pulse/.pulse_Connections.txt:/root/.pulse_secure/pulse/.pulse_Connections.txt \
--v ~/.pulse_secure/pulse/pulseUi.lock:/root/.pulse_secure/pulse/pulseUi.lock \
+-v ~/.pulse_secure:/root/.pulse_secure \
 --net host \
 --privileged \
 -e DISPLAY=unix$DISPLAY \
 --name pulsesecure \
 $DOCKER_USER/pulsesecure
 
-#-v ~/.pulse_secure:/root/.pulse_secure \
